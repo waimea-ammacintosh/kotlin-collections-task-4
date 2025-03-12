@@ -185,8 +185,12 @@ fun placeMonkey(cageList: MutableList<String>, name: String): Int {
     // YOUR CODE HERE
     for ((i, cage) in cageList.withIndex()) {
         if (cage == EMPTY) {
-            cageList[i] = name
-            return i + 1
+            val prevViolent = (i == 0 || cageList[i - 1].contains("!"))
+            val nextViolent = (i == cageList.size -1 || cageList[i + 1].contains("!"))
+            if (!prevViolent && !nextViolent) {
+                cageList[i] = name
+                return i + 1
+            }
         }
     }
     return -1
@@ -210,14 +214,18 @@ fun placeViolentMonkey(cageList: MutableList<String>, name: String): Int {
 
     // YOUR CODE HERE
     for ((i, cage) in cageList.withIndex()) {
-        if (cage == EMPTY && cageList[i] - 1 == EMPTY) {
-            cageList[i] = name
-            return i + 1
+        if (cage == EMPTY) {
+            val prevEmpty = (i == 0 || cageList[i - 1] == EMPTY)
+            val nextEmpty = (i == cageList.size - 1 || cageList[i + 1] == EMPTY)
+            if (prevEmpty && nextEmpty) {
+                cageList[i] = "!$name"
+                return i + 1
+            }
         }
     }
     return -1
 }
-}
+
 
 
 /**
