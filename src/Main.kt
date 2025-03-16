@@ -274,15 +274,20 @@ fun placeMonkeyInCage(cageList: MutableList<String>, cageNum: Int, name: String)
  * +--------+--------+--------+--------+----
  */
 fun showMonkeyCages(cageList: List<String>) {
-    val divider = "+--------".repeat(cageList.size) + "+"
+    val divider = "+--------".repeat(cageList.size).grey() + "+".grey()
 
     println(divider)
-    for (i in 0..<cageList.size) print("| Cage ${i + 1} ")
-    println("|")
+    for (i in 0..<cageList.size) print("|".grey() + " Cage ${i + 1} ".blue())
+    println("|".grey())
 
     println(divider)
-    for ((i, name) in cageList.withIndex()) print("| ${name.padEnd(6)} ")
-    println("|")
+    for ((i, name) in cageList.withIndex()){
+        if (cageList[i].contains("!")) {
+            print("|".grey() + " ${name.padEnd(6)} ".red())
+        }
+        else print("|".grey() + " ${name.padEnd(6)} ".green())
+    }
+    println("|".grey())
 
     println(divider)
 }
